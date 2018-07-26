@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="52dp"
+    android:height="60dp"
+    android:viewportHeight="60"
+    android:viewportWidth="52">
+    <group
+        android:translateX="-711.421"
+        android:translateY="-560.073">
+        <group>
+            <clip-path android:pathData="M380.81799 335.31799l384.603 0 0 288.14099 -384.603 0z" />
+            <group
+                android:scaleX="57.5"
+                android:scaleY="57.5"
+                android:translateX="455.5"
+                android:translateY="410">
+                <path
+                    android:fillColor="#33d3f4"
+                    android:pathData="M1 0A1 1 0 0 1 0 1 1 1 0 0 1 -1 0 1 1 0 0 1 0 -1 1 1 0 0 1 1 0Z" />
+            </group>
+            <group
+                android:scaleX="74.182"
+                android:scaleY="74.182"
+                android:translateX="455.5"
+                android:translateY="410">
+                <path
+                    android:pathData="M1 0A1 1 0 0 1 0 1 1 1 0 0 1 -1 0 1 1 0 0 1 0 -1 1 1 0 0 1 1 0Z"
+                    android:strokeColor="#33d3f4"
+                    android:strokeLineCap="square"
+                    android:strokeLineJoin="miter"
+                    android:strokeMiterLimit="3"
+                    android:strokeWidth="1" />
+            </group>
+            <path
+                android:fillColor="#33d3f4"
+                android:pathData="M459.076 604l-12.5 7.217 -12.5 7.217 -12.5 -7.217 -12.5 -7.217 0 -14.434 0 -14.434 12.5 -7.216 12.5 -7.217 12.5 7.217 12.5 7.216 0 14.434 0 14.434zm-43 -2.434l36 0 0 -4 -36 0 0 4zm0 -10l36 0 0 -4 -36 0 0 4zm0 -14l0 4 36 0 0 -4 -36 0z" />
+            <path
+                android:pathData="M535.483 602.111l-12.5 7.217 -12.5 7.217 -12.5 -7.217 -12.5 -7.217 0 -14.434 0 -14.433 12.5 -7.217 12.5 -7.217 12.5 7.217 12.5 7.217 0 14.433 0 14.434z"
+                android:strokeColor="#33d3f4"
+                android:strokeLineCap="square"
+                android:strokeLineJoin="miter"
+                android:strokeMiterLimit="3"
+                android:strokeWidth="2" />
+            <path
+                android:fillColor="#33d3f4"
+                android:pathData="M492.483 599.677l36 0 0 -4 -36 0 0 4zm0 -10l36 0 0 -4 -36 0 0 4zm0 -14l0 4 36 0 0 -4 -36 0z" />
+            <path
+                android:fillColor="#33d3f4"
+                android:pathData="M667.807 609.025l-12.5 7.217 -12.5 7.217 -12.5 -7.217 -12.5 -7.217 0 -14.433 0 -14.434 12.5 -7.217 12.5 -7.217 12.5 7.217 12.5 7.217 0 14.434 0 14.433zm-18.086 -11.152c1.172 -1.844 1.859 -4.031 1.859 -6.383 0 -6.57 -5.32 -11.898 -11.883 -11.898 -6.57 0 -11.89 5.328 -11.89 11.898 0 6.57 5.32 11.899 11.883 11.899 2.382 0 4.601 -0.704 6.461 -1.907l0.539 -0.375 8.484 8.485 2.633 -2.68 -8.477 -8.484 0.391 -0.555zm-3.367 -13.031c1.773 1.773 2.75 4.133 2.75 6.64 0 2.508 -0.977 4.868 -2.75 6.641 -1.774 1.773 -4.133 2.75 -6.641 2.75 -2.508 0 -4.867 -0.977 -6.641 -2.75 -1.773 -1.773 -2.75 -4.133 -2.75 -6.641 0 -2.507 0.977 -4.867 2.75 -6.64 1.774 -1.774 4.133 -2.75 6.641 -2.75 2.508 0 4.867 0.976 6.641 2.75l0 0z" />
+            <path
+                android:pathData="M737.421 561.073l25 14.434 0 28.867 -25 14.434 -25 -14.434 0 -28.867z"
+                android:strokeColor="#33d3f4"
+                android:strokeLineCap="square"
+                android:strokeLineJoin="miter"
+                android:strokeMiterLimit="3"
+                android:strokeWidth="2" />
+            <path
+                android:fillColor="#33d3f4"
+                android:pathData="M744.335 593.222c1.172 -1.844 1.859 -4.031 1.859 -6.383 0 -6.57 -5.32 -11.898 -11.883 -11.898 -6.57 0 -11.89 5.328 -11.89 11.898 0 6.57 5.32 11.898 11.883 11.898 2.382 0 4.601 -0.703 6.46 -1.906l0.54 -0.375 8.484 8.485 2.633 -2.68 -8.477 -8.485 0.391 -0.554zm-3.367 -13.031c1.773 1.773 2.75 4.132 2.75 6.64 0 2.508 -0.977 4.867 -2.75 6.641 -1.774 1.773 -4.133 2.75 -6.641 2.75 -2.508 0 -4.867 -0.977 -6.641 -2.75 -1.773 -1.774 -2.75 -4.133 -2.75 -6.641 0 -2.508 0.977 -4.867 2.75 -6.64 1.774 -1.774 4.133 -2.75 6.641 -2.75 2.508 0 4.867 0.976 6.641 2.75l0 0z" />
+        </group>
+    </group>
+</vector>

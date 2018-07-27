@@ -47,7 +47,7 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <dev.quantarks.quantarkstrial.PreviousElementPager
+        <dev.quantarks.quantarks.PreviousElementPager
             android:layout_width="100dp"
             android:layout_height="200dp"
             android:layout_marginTop="30dp"
@@ -63,7 +63,7 @@
             app:textColor="@color/atom_electron_color"
             app:textFontFamily="LatoBlack"/>
 
-        <dev.quantarks.quantarkstrial.NextElementPager
+        <dev.quantarks.quantarks.NextElementPager
             android:id="@+id/button_next_element"
             android:layout_width="100dp"
             android:layout_height="200dp"

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ElectronShell">
+        <attr name="electronConf" format="string"/>
+        <attr name="elementSymbol" format="string" />
+        <attr name="atomicNumber" format="integer"/>
+        <attr name="elementName" format="string"/>
+        <attr name="electronColor" format="color" />
+        <attr name="orbitalColor" format="color" />
+        <attr name="nucleusColor" format="color" />
+    </declare-styleable>
+    <declare-styleable name="PreviousElementPager">
+        <attr name="textTop" format="string"/>
+        <attr name="textMiddle" format="string"/>
+        <attr name="textBottom" format="string"/>
+        <attr name="textColor" format="color"/>
+        <attr name="textFontFamily" format="enum">
+            <enum name="LatoHairline" value="0" />
+            <enum name="LatoLight" value="1"/>
+            <enum name="LatoRegular" value="2"/>
+            <enum name="LatoBold" value="3"/>
+            <enum name="LatoBlack" value="4"/>
+        </attr>
+        <attr name="pagerType" format="enum">
+            <enum name="previous" value="0"/>
+            <enum name="next" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>

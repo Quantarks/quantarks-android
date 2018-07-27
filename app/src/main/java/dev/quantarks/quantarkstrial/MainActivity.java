@@ -17,7 +17,5 @@ public class MainActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.hide();
-
-
     }
 }

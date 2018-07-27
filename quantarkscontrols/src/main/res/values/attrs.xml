@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ElectronShell">
+        <attr name="electronConf" format="string"/>
+        <attr name="elementSymbol" format="string" />
+        <attr name="atomicNumber" format="integer"/>
+        <attr name="elementName" format="string"/>
+        <attr name="electronColor" format="color" />
+        <attr name="orbitalColor" format="color" />
+        <attr name="nucleusColor" format="color" />
+    </declare-styleable>
+    <declare-styleable name="ElementPager">
+        <attr name="textTop" format="string"/>
+        <attr name="textMiddle" format="string"/>
+        <attr name="textBottom" format="string"/>
+        <attr name="textColor" format="color"/>
+        <attr name="pagerType" format="enum">
+            <enum name="previous" value="0"/>
+            <enum name="next" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>

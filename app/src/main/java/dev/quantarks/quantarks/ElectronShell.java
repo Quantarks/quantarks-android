@@ -5,9 +5,13 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.GradientDrawable;
+import android.graphics.Point;
+import android.graphics.PointF;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.graphics.drawable.shapes.Shape;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -19,16 +23,19 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 
 public class ElectronShell extends View {
+    private static final int NUCLEUS_RADIUS = 60;
 
     //region Private Variables
 
-    private ArrayList<GradientDrawable> _orbitals;
-    private ArrayList<ShapeDrawable> _electrons;
-    private ShapeDrawable _nucleus;
-    private  Paint mTextPaint;
+    private int _orbitals;
+    private ArrayList<ArrayList<ShapeDrawable>> _electrons;
+    private Paint mTextPaint, nucleusPaint, orbitalPaint;
+    private float _textWidth;
+    private Rect _textBounds;
 
     private int atomicNumber;
     private String _elementName;
+    private String _elementSymbol;
     private String _electronConf;
 
     private int _nucleusColor;
@@ -53,6 +60,7 @@ public class ElectronShell extends View {
         try {
             atomicNumber = a.getInteger(R.styleable.ElectronShell_atomicNumber, 1);
             _elementName = a.getString(R.styleable.ElectronShell_elementName);
+            _elementSymbol = a.getString(R.styleable.ElectronShell_elementSymbol);
             _electronConf = a.getString(R.styleable.ElectronShell_electronConf);
 
             _nucleusColor = a.getColor(R.styleable.ElectronShell_nucleusColor, Color.BLACK);
@@ -66,74 +74,73 @@ public class ElectronShell extends View {
     }
 
     private void init() {
-        JsonArray elec = this.getElectronConf();
-        int atomicNumber = this.getAtomicNumber();
-        int widthCenter = getCenterWidth(30);
-        int heightCenter = getCenterHeight(30);
+        nucleusPaint = new Paint();
+        nucleusPaint.setColor(_nucleusColor);
+        nucleusPaint.setAntiAlias(true);
+
+        orbitalPaint = new Paint();
+        orbitalPaint.setColor(_orbitalColor);
+        orbitalPaint.setStyle(Paint.Style.STROKE);
+        orbitalPaint.setAntiAlias(true);
+        orbitalPaint.setStrokeWidth(3);
+
+        mTextPaint = new Paint();
+        mTextPaint.setAntiAlias(true);
+        mTextPaint.setColor(0xFFCBCBCB);
+        mTextPaint.setTextSize(NUCLEUS_RADIUS);
+        mTextPaint.setTypeface(
+                Typeface.createFromAsset(
+                        this.getContext().getAssets(),
+                        "fonts/OpenSans-Bold.ttf"));
+        _textWidth = mTextPaint.measureText(_elementSymbol);
+        _textBounds = new Rect();
+        mTextPaint.getTextBounds(_elementSymbol, 0, _elementSymbol.length(), _textBounds);
+
 
         _electrons = new ArrayList<>();
-        _orbitals = new ArrayList<>();
 
         initializeElectrons();
         initializeOrbitals();
-
-        _nucleus = new ShapeDrawable(new OvalShape());
-        _nucleus.getPaint().setColor(_nucleusColor);
-        _nucleus.setBounds(heightCenter, widthCenter, 30, 30);
-
-        this.getClipBounds();
-
-        //TODO: Fix nuclei and orbitals to this View's center
-
-        Log.wtf("QUANTARKS", "width: " + viewWidth);
-        Log.wtf("QUANTARKS", "height: " + viewHeight);
-        Log.wtf("QUANTARKS", "sWidth: " + 30);
-
     }
 
     //region Utilities
 
-    private JsonArray parseElectronConf(String json) {
-        return new JsonParser().parse(json).getAsJsonArray();
+    private ArrayList parseElectronConf(String json) {
+        JsonArray ja = new JsonParser().parse(json).getAsJsonArray();
+        ArrayList al = new ArrayList();
+        int size = ja.size();
+
+        for (int i = 0; i < size; i++) {
+            al.add(ja.get(i).getAsInt());
+        }
+
+        return al;
     }
 
     private void initializeElectrons() {
-        for (int i = 0; i < atomicNumber; i++) {
-            ShapeDrawable sd = new ShapeDrawable(new OvalShape());
-            sd.getPaint().setColor(_electronColor);
-            sd.setBounds(0, 0, 20, 20);
+        ArrayList<Integer> elecConf = this.getElectronConf();
+        int orbitalCount = elecConf.size();
 
-            _electrons.add(sd);
+        for (int i = 0; i < orbitalCount; i++) {
+            int electrons = elecConf.get(i);
+
+            ArrayList<ShapeDrawable> al = new ArrayList();
+
+            for (int j = 0; j < electrons; j++) {
+                ShapeDrawable sd = new ShapeDrawable(new OvalShape());
+                sd.getPaint().setColor(_electronColor);
+                al.add(sd);
+            }
+
+            _electrons.add(al);
         }
+
+
     }
 
     private void initializeOrbitals() {
         int orbitalCount = this.getElectronConf().size();
-        int orbitalRadiusGrowingFactor = 30;
-
-        for (int i = 0; i < orbitalCount; i++) {
-            GradientDrawable gd = new GradientDrawable();
-            int orbitalRadius = (i + 1) * orbitalRadiusGrowingFactor;
-            int centerX = getCenterWidth(orbitalRadius);
-            int centerY = getCenterHeight(orbitalRadius);
-
-            gd.setColor(0x00FFFFFF); // set fill to transparent
-            gd.setCornerRadius(orbitalRadius);
-            gd.setStroke(3, _orbitalColor);
-            gd.setBounds(centerX, centerY,  orbitalRadius, orbitalRadius);
-
-            _orbitals.add(gd);
-        }
-    }
-
-    private int getCenterWidth(int shapeWidth) {
-        //return (viewWidth) - (shapeWidth / 2);
-        return 0;
-    }
-
-    private int getCenterHeight(int shapeHeight) {
-        //return (viewHeight) - (shapeHeight / 2);
-        return 0;
+        _orbitals = orbitalCount;
     }
 
     //endregion
@@ -142,7 +149,7 @@ public class ElectronShell extends View {
 
     public int getAtomicNumber()       { return atomicNumber; }
     public String getElementName()     { return _elementName;  }
-    public JsonArray getElectronConf() { return parseElectronConf(_electronConf); }
+    public ArrayList getElectronConf() { return parseElectronConf(_electronConf); }
 
     public int get_nucleusColor()  { return _nucleusColor;  }
     public int get_electronColor() { return _electronColor; }
@@ -190,17 +197,42 @@ public class ElectronShell extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        int len = _electrons.size();
-        for (int i = 0; i < len; i++) {
-            _electrons.get(i).draw(canvas);
+        // draw nucleus
+        canvas.drawCircle(getWidth()/2, getHeight()/2, NUCLEUS_RADIUS, nucleusPaint);
+
+        // draw orbitals
+        for (int i = 1; i <= _orbitals; i++) {
+            canvas.drawCircle(getWidth()/2, getHeight()/2, (i * 20) + NUCLEUS_RADIUS, orbitalPaint);
         }
 
-        len = _orbitals.size();
-        for (int i = 0; i < len; i++) {
-            _orbitals.get(i).draw(canvas);
-        }
+        //draw label
+        canvas.drawText("Ar",
+                (getWidth()/2) - (_textBounds.width()/2),
+                (getHeight()/2) + (_textBounds.height()/2),
+                mTextPaint);
 
-        _nucleus.draw(canvas);
+        // draw electrons
+        int i = _electrons.size();
+        for (int j = 0; j < i; j++) {
+            int orbitSize = ((j+1) * 20) + NUCLEUS_RADIUS;
+            int electronsInThisOrbit = _electrons.get(j).size();
+            ArrayList<ShapeDrawable> orbital = _electrons.get(j);
+
+            for (int k = 0; k < electronsInThisOrbit; k++) {
+                ShapeDrawable currentElectron = orbital.get(k);
+                int y = ((int) getCircumferentialPoint(getHeight() / 2, orbitSize, 360 / electronsInThisOrbit)) - 5;
+                int x = ((int) getCircumferentialPoint(getWidth()/2, orbitSize, 360 / electronsInThisOrbit)) - 5;
+               currentElectron.setBounds(x, y, x + 10, y + 10);
+
+                currentElectron.draw(canvas);
+            }
+        }
+    }
+
+    public double getCircumferentialPoint(int cy, int radius, float angle) {
+        double y = (cy + radius * Math.cos(angle * Math.PI/180));
+
+        return y;
     }
 
 

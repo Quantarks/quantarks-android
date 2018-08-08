@@ -6,8 +6,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import dev.quantarks.util.ChemicalElements;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,13 +27,16 @@ public class MainActivity extends AppCompatActivity {
         actionBar.hide();
 
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/OpenSans-Bold.ttf");
-        TextView txtGeneral = (TextView)findViewById(R.id.txtGeneral);
+        TextView txtGeneral = findViewById(R.id.txtGeneral);
         txtGeneral.setTypeface(type);
 
-        ImageView electronShell = (ImageView)findViewById(R.id.electronShell);
+        ImageView electronShell = findViewById(R.id.electronShell);
         Drawable mDrawable = electronShell.getDrawable();
         if(mDrawable instanceof Animatable) {
             ((Animatable) mDrawable).start();
         }
+
+        ChemicalElements ce = ChemicalElements.findByName("Hett", this.getApplicationContext());
+        Log.d("CHEMICALS", "onCreate: " + ce);
     }
 }

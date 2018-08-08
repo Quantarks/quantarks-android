@@ -197,4 +197,10 @@ public class ChemicalElements {
     private void setDiscoverers(String discoverers) {
         this.discoverers = discoverers;
     }
+
+    //region constants
+
+    public static int MAX_ELEMENT_NUMBER = 117;
+
+    //endregion
 }
